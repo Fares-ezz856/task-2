@@ -30,14 +30,14 @@ class ApplicationSubmitted extends Mailable
                           'user' => $this->application->user,
                       ]);
 
-        // Attach files
+        
         if (!empty($this->application->files) && is_array($this->application->files)) {
             foreach ($this->application->files as $path) {
                 $email->attach(storage_path("app/public/{$path}"));
             }
         }
 
-        // Attach PDF
+        
         $email->attachData($this->pdfBytes, 'application.pdf', [
             'mime' => 'application/pdf',
         ]);
