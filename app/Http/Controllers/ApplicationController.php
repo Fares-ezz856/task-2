@@ -32,7 +32,7 @@ class ApplicationController extends Controller
 
         $user = $request->user();
 
-        // handle files
+       
         $stored = [];
         if ($request->hasFile('files')) {
             foreach ($request->file('files') as $file) {
@@ -52,16 +52,16 @@ class ApplicationController extends Controller
             'files' => $stored,
         ]);
 
-        // generate PDF from view
+       
         $pdf = PDF::loadView('emails.application_pdf', [
             'application' => $application,
             'user' => $user,
         ]);
 
-        // send email to admin
+       
         $adminEmail = config('mail.admin') ?? env('ADMIN_EMAIL');
 
-        // Using a Mailable which attaches files + pdf
+      
         Mail::to($adminEmail)->send(new ApplicationSubmitted($application, $pdf->output()));
 
         return response()->json([
