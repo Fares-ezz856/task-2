@@ -21,7 +21,6 @@ class ApplicationController extends Controller
     {
         $request->validate([
             'contact_email' => 'required|email',
-            // if using propaganistas phone package: 'contact_phone' => 'required|phone:AUTO,US' or generic:
             'contact_phone' => ['required','string','max:32'],
             'date_of_birth' => 'required|date',
             'gender' => 'nullable|in:male,female,other',
@@ -36,7 +35,7 @@ class ApplicationController extends Controller
         $stored = [];
         if ($request->hasFile('files')) {
             foreach ($request->file('files') as $file) {
-                $path = $file->store('uploads', 'public'); // storage/app/public/uploads
+                $path = $file->store('uploads', 'public'); 
                 $stored[] = $path;
             }
         }
